@@ -16,8 +16,9 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
         <link rel="stylesheet" href="../public/style.css">
+        <link rel="stylesheet" href="newcss.css">
         <script src="javascript.js"></script>
-        <title>Title of the document</title>
+        <title>Gestion des UE et des matières</title>
     </head>
     <body>
         <div class="myNavbar">
@@ -32,7 +33,7 @@
                 <a href="#company">Formations</a>
                 <a href="#company">Salles</a>
                 <a href="#company">Matériels</a>
-                <a href="#company">Unités d'enseignements</a>
+                <a href="gestionUE.php">Unités d'enseignements</a>
                 <a href="#company">Matières</a>
                 </div>
             </div> 
@@ -43,8 +44,8 @@
                     <a href="#company">Formations</a>
                     <a href="#company">Salles</a>
                     <a href="#company">Matériels</a>
-                    <a href="#company">Unités d'enseignements</a>
-                    <a href="#company">Matières</a>
+                    <a href="creationUE.php">Unités d'enseignements</a>
+                    <a href="creationMatiere.php">Matières</a>
                 </div>
             </div>
             <div class="subnav">
@@ -108,7 +109,7 @@
                         for($i=0;$i<=count($UE)-1;$i++){
                         ?>
                         <tr>
-                            <td><?php echo($UE[$i]['IntituleUE']); ?></td>
+                            <td><?php echo $UE[$i]['IntituleUE']; ?></td>
                             <td><?php echo $UE[$i]['IntituleF']; ?></td>
                             <td><p><a href="<?php echo "creationUE.php?idue=".$UE[$i]['IdUE']; ?>&type=M"><button class="btn btn-warning">Modifier</button></a>
                                     <a href="<?php echo "creationUE.php?idue=".$UE[$i]['IdUE']; ?>&type=S"><button class="btn btn-danger">Supprimer</button></p></a>
@@ -153,8 +154,8 @@
                             <td><?php echo ($matieres[$i]['NbHeuresFixees']); ?></td>
                             <td><?php echo ($matieres[$i]['IntituleUE']); ?></td> 
               
-                            <td><p><a href="<?php echo "creationMatieres.php?idm=".$matieres[$i]['NumM']; ?>&type=M"><button class="btn btn-warning">Modifier</button></a>
-                                <a href="<?php echo "creationMatieres.php?idm=".$matieres[$i]['NumM']; ?>&type=S"><button class="btn btn-danger">Supprimer</button></p></a></td>
+                            <td><p><a href="<?php echo "creationMatiere.php?idm=".$matieres[$i]['NumM']; ?>&type=M"><button class="btn btn-warning">Modifier</button></a>
+                                <a href="<?php echo "creationMatiere.php?idm=".$matieres[$i]['NumM']; ?>&type=S"><button class="btn btn-danger">Supprimer</button></p></a></td>
                         </tr>
                         <?php
                         }
