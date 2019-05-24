@@ -110,8 +110,8 @@
                         <tr>
                             <td><?php echo($UE[$i]['IntituleUE']); ?></td>
                             <td><?php echo $UE[$i]['IntituleF']; ?></td>
-                            <td><p><a href="<?php echo "creationUE.php?id=".$UE[$i]['IdUE']; ?>&type=M"><button class="btn btn-warning">Modifier</button></a>
-                                    <a href="<?php echo "creationUE.php?id=".$UE[$i]['IdUE']; ?>&type=S"><button class="btn btn-danger">Supprimer</button></p></a>
+                            <td><p><a href="<?php echo "creationUE.php?idue=".$UE[$i]['IdUE']; ?>&type=M"><button class="btn btn-warning">Modifier</button></a>
+                                    <a href="<?php echo "creationUE.php?idue=".$UE[$i]['IdUE']; ?>&type=S"><button class="btn btn-danger">Supprimer</button></p></a>
                                 </td>
                         </tr>
                         <?php
@@ -153,8 +153,8 @@
                             <td><?php echo ($matieres[$i]['NbHeuresFixees']); ?></td>
                             <td><?php echo ($matieres[$i]['IntituleUE']); ?></td> 
               
-                            <td><p><a href="<?php echo "creationMatieres.php?id=".$matieres[$i]['NumM']; ?>&type=M"><button class="btn btn-warning">Modifier</button></a>
-                                <a href="<?php echo "creationMatieres.php?id=".$matieres[$i]['NumM']; ?>&type=S"><button class="btn btn-danger">Supprimer</button></p></a></td>
+                            <td><p><a href="<?php echo "creationMatieres.php?idm=".$matieres[$i]['NumM']; ?>&type=M"><button class="btn btn-warning">Modifier</button></a>
+                                <a href="<?php echo "creationMatieres.php?idm=".$matieres[$i]['NumM']; ?>&type=S"><button class="btn btn-danger">Supprimer</button></p></a></td>
                         </tr>
                         <?php
                         }
