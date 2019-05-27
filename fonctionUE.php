@@ -1,5 +1,5 @@
 <?php
-    require 'connexion.php';
+    require_once 'connexion.php';
     
 //Fonction d'affichage des UE
 function rechercherNomUENomF(){
@@ -12,17 +12,7 @@ function rechercherNomUENomF(){
     $result = $stmt->fetchAll(PDO::FETCH_ASSOC); 
     return $result;
 }
-//Fonction d'affichage des matières
-function rechercherMatieres(){
-    $db = dbConnect();
-    $sql="SELECT m.NumM, m.IntituleM, m.TypeM, m.NbHeuresFixees, u.IntituleUE
-          FROM MATIERES m, UNITE_ENSEIGNEMENT u
-          WHERE u.IdUE=m.IdUE";
-    $stmt = $db->prepare($sql);
-    $stmt->execute();
-    $result = $stmt->fetchAll(PDO::FETCH_ASSOC); 
-    return $result;
-}
+
 
 //fonction supp/modifUE
 function suppModifUE(){
@@ -30,8 +20,8 @@ function suppModifUE(){
         $idue=$_GET["idue"];
         $type=$_GET["type"];  
         if ($type=='M'){
-            $modif[1]= recupererModif($idue)['IntituleUE'];
-            $modif[2]= recupererModif($idue)['IdF'];
+            $modif[1]= recupererModifUE($idue)['IntituleUE'];
+            $modif[2]= recupererModifUE($idue)['IdF'];
         }
         if ($type=='S'){
             if(verifierMatieres($idue)==0){
@@ -60,34 +50,7 @@ function suppModifUE(){
     return $modif;
 }
 
-//fonction supp/modifUE
-function suppModifMatiere(){
-    if (!empty($_GET["idm"])){
-    $idm=$_GET["idm"];
-    $type=$_GET["type"];
-        if ($type=='M'){
 
-
-        } 
-        if ($type=='S'){
-            if(verifierSeance($idm)==0){
-                supprimerMatieres($idm);
-                echo "<script>";
-                echo "alert('La suppression a bien été prise en compte')";
-                echo "</script>"; 
-                $URL="gestionUE.php";
-                echo "<script>location.href='$URL'</script>";
-            }
-            else{
-                echo "<script>";
-                echo "alert('Vous ne pouvez pas supprimer cette matière : Il y a"." ". verifierSeance($idm)." "."séance(s) de cette matière prévues')";
-                echo "</script>";
-                $URL="gestionUE.php";
-                echo "<script>location.href='$URL'</script>";
-            }
-        } 
-    }
-}
 //Fonction de suppression d'un UE
 function supprimerUE($IdUE){
     $db=dbConnect();
@@ -96,39 +59,7 @@ function supprimerUE($IdUE){
     $stmt = $db->prepare($sql);
     $stmt->execute();
 }
-//Fonction de suppression de matière
-function supprimerMatieres($NumM){
-    $db=dbConnect();
-    $sql1="DELETE FROM ENSEIGNE WHERE NumM=$NumM";
-    $stmt1 = $db->prepare($sql1);
-    $stmt1->execute();
-    $sql2="DELETE FROM MATIERES WHERE NumM=$NumM";
-    $stmt2 = $db->prepare($sql2);
-    $stmt2->execute();
-    
-}
-//Fonction de verification de séance
-function verifierSeance($NumM){
-    $cx=connectDB();
-    $sql="SELECT COUNT(*) AS nb  
-          FROM SEANCES s, MATIERES m
-          WHERE s.NumM=m.NumM
-          AND m.NumM=$NumM";
-    $exe=mysqli_query($cx,$sql);
-    $res=mysqli_fetch_array($exe);
-    return $res['nb'];
-}   
-//Fonction de verification enseignement
-function verifierEnseigne($NumM){
-    $cx=connectDB();
-    $sql="SELECT COUNT(*) AS nb  
-          FROM ENSEIGNE
-          WHERE NumM=$NumM";
-    $exe=mysqli_query($cx,$sql);
-    $res=mysqli_fetch_array($exe);
-    return $res['nb'];
-}   
-
+   
 //Fonction de verification de matiere
 function verifierMatieres($NumUE){
     $cx=connectDB();
@@ -180,7 +111,7 @@ function verifierMatieres($NumUE){
     }
     
    
-    function recupererModif($idue){
+    function recupererModifUE($idue){
         $cx= ConnectDB();
         $sql="SELECT u.IntituleUE, f.IdF
           FROM FORMATION f, UNITE_ENSEIGNEMENT u

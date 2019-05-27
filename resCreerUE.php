@@ -1,5 +1,5 @@
 <?php
-    require ("fonctionUE.php");
+    require_once ("fonctionUE.php");
     $resUE = RecupererUE();
     $resFormation = RecupererFormation();
     if(!empty($_GET['idue'])){

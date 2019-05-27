@@ -1,10 +1,17 @@
 <?php
-    require ("fonctionUE.php");
-    require_once 'fonctionUE.php';
+    require_once ("fonctionUE.php");
+    require_once ("fonctionMatiere.php");
+    suppModifMatiere();
+    $resM = RecupererMatiere();
+    $resD = RecupererDomaine();
     $resUE = RecupererUE();
     $resFormation = RecupererFormation();
-    
-    suppModifMatiere();
+    $intituleMat= suppModifMatiere()[1];
+    $typeMat= suppModifMatiere()[2];
+    $heureMat= suppModifMatiere()[3];
+    $idue= suppModifMatiere()[4];
+    $iddom= suppModifMatiere()[5];
+    $idm= suppModifMatiere()[6];
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -20,9 +27,8 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
         <link rel="stylesheet" href="style.css">
         <script src="javascript.js"></script>
-        <title>Insertion UE</title>
+        <title>Insertion Matière</title>
     </head>
-
     <body>
         <div class="myNavbar">
             <div class="navbar-header">
@@ -48,7 +54,7 @@
                     <a href="#company">Salles</a>
                     <a href="#company">Matériels</a>
                     <a href="gestionUE.php">Unités d'enseignements</a>
-                    <a href="#company">Matières</a>
+                    <a href="gestionUE.php">Matières</a>
                 </div>
             </div>
             <div class="subnav">
@@ -86,52 +92,64 @@
               <br>
               <h4>Insertion simple</h4>
               <br>
-              <form action="resCreerUE.php" method = GET>
-                  
-                  
-                  
-                  
-                  <div class="form-group">
-                    <label for="pwd">Intitulé :</label>
-                    <input type="text" class="form-control" id="nomMat" placeholder="Nom" name="intituleM">
-                  </div>
-                  
-                  
-                  <div class="form-group"> 
-                    <label for="sel1">Type :</label>
-                    <select class="form-control" id="sel1" name="formationUE">
-                      <option selected >Choisir un type de matière </option>
-                          <?php             
-                              for($i=0;$i<=count($resFormation)-1;$i++){
-                          ?>
-                              <Option value ="<?php echo $resFormation[$i]['IdF'] ?>"><?php echo $resFormation[$i]['IntituleF'] ?></option>     
-                          <?php
-                              }
-                          ?>
-                    </select>
-                  </div>
-                  
-                  <div class="form-group">
-                    <label for="pwd">Nombre d'heures :</label>
-                    <input type="number" pattern="[0,999]" class="form-control" id="nbHeuresMat" placeholder="Entrer un nombre" name="nbHeuresM">
-                  </div>
-                  
-                  
-                  
-                  
-                  <button type="submit" class="btn btn-primary btn-block">Créer</button>
-              </form>
-            </div>
-            <div class="col-sm-1"></div>
-            <div class="col-sm-4">
+              <form action="resCreerMatiere.php" method = GET>
+                <div class="form-group">
+                  <label for="pwd">Intitulé :</label>
+                  <input type="text" class="form-control" id="nomMat" placeholder="Nom de la matière" name="intituleM" value='<?php echo $intituleMat ?>'>
+                </div>
+                <div class="form-group"> 
+                  <label for="sel1">Type :</label>
+                  <select class="form-control" id="typeMatiere" name="choixTypeMatiere">
+                    <option selected>Choisir le type de matière</option>
+                    <option <?php if ($typeMat=='CM'){ echo "selected";}?> >CM</option>
+                    <option <?php if ($typeMat=='TD'){ echo "selected";}?> >TD</option>
+                    <option <?php if ($typeMat=='Autres'){ echo "selected";}?> >Autres</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="pwd">Nombre d'heures :</label>
+                  <input type="text" maxlength="3" class="form-control" id="nbHeuresMat" placeholder="Nombre entre 1 et 999" name="nbHeuresM" value='<?php echo $heureMat ?>'>
+                </div>
+                <div class="form-group"> 
+                  <label for="sel1">Unité d'enseignement :</label>
+                  <select class="form-control" id="nomUE" name="choixUE">
+                    <option selected >Choisir une U.E.</option>
+                        <?php             
+                            for($i=0;$i<=count($resUE)-1;$i++){
+                        ?>
+                            <Option <?php if ($idue==$resUE[$i]['IdUE']){ echo "selected";}?> value ="<?php echo $resUE[$i]['IdUE'] ?>"><?php echo $resUE[$i]['IntituleUE'] ?></option>     
+                        <?php
+                            }
+                        ?>
+                  </select>
+                </div>
+                <div class="form-group"> 
+                  <label for="sel1">Domaine :</label>
+                  <select class="form-control" id="nomDom" name="choixDomaine">
+                    <option selected >Choisir un domaine </option>
+                        <?php             
+                            for($i=0;$i<=count($resD)-1;$i++){
+                        ?>
+                            <Option <?php if ($iddom==$resD[$i]['IdDomaine']){ echo "selected";}?> value ="<?php echo $resD[$i]['IdDomaine'] ?>"><?php echo $resD[$i]['Intitule_domaine'] ?></option>     
+                        <?php
+                            }
+                        ?>
+                  </select>
+                  <input type='hidden' value='<?php echo $idm ?>' name='idm'></input>
+                </div>
+                <button type="submit" class="btn btn-primary btn-block">Créer</button>
+            </form>
+          </div>
+          <div class="col-sm-1"></div>
+          <div class="col-sm-4">
+            <br>
+              <h4>Insertion CSV</h4>
               <br>
-                <h4>Insertion CSV</h4>
-                <br>
-                <form>
-                  <div class="custom-file">
-                    <input type="file" class="custom-file-input custom-control-label" id="customFile">
-                    <label class="custom-file-label" for="customFile">Choisir un fichier</label>
-                  </div>
+              <form>
+                <div class="custom-file">
+                  <input type="file" class="custom-file-input custom-control-label" id="customFile">
+                  <label class="custom-file-label" for="customFile">Choisir un fichier</label>
+                </div>
                 </form>
             </div>
         </div>

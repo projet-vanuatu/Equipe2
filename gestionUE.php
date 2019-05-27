@@ -1,5 +1,6 @@
 <?php
     require_once 'fonctionUE.php';
+    require_once 'fonctionMatiere.php';
     $UE = rechercherNomUENomF();
     $matieres = rechercherMatieres();  
 ?>
@@ -130,7 +131,7 @@
                     <input type="text" class="form-control" id="myInput" onkeyup="myFunction();" placeholder="Rechercher.." title="">
                 </div>
                 <div class="col-sm-4">
-                    <a href="creationMatieres.php"<button class="btn btn-primary">Créer une matière</button></a>
+                    <a href="creationMatiere.php"<button class="btn btn-primary">Créer une matière</button></a>
                 </div>
             </div>
             <br>        

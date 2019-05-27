@@ -1,5 +1,5 @@
 <?php
-    require ("fonctionUE.php");
+    require_once ("fonctionUE.php");
     $resUE = RecupererUE();
     $resFormation = RecupererFormation();
     $intituleUE=suppModifUE()[1];
