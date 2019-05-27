@@ -1,3 +1,6 @@
+<html>
+    <head>
+        <meta charset="UTF-8"> 
 <?php
     require_once ('connexion.php');
 
@@ -62,7 +65,11 @@
                 . "VALUES (NULL, '$nomMat', '$typeM', '$nbHeuresM', '$UEM', '$DomaineM')";
         $queryInsererUE = mysqli_query($cx,$InsererM);
         if($queryInsererUE){
-            header('Location: creationMatiere.php');
+            echo "<script>";
+            echo "alert('Insertion effectuée')";
+            echo "</script>";
+            $URL="gestionUE.php";
+            echo "<script>location.href='$URL'</script>"; 
         }
     }
     
@@ -169,7 +176,12 @@ function recupererModifM($idM){
         $updateM = "UPDATE MATIERES SET IntituleM = '$intM',TypeM = '$typeM', NbHeuresFixees = '$nbheure',IdUE = '$idue', IdDomaine = '$iddom' WHERE NumM=$idm";
         $queryupdateM = mysqli_query($cx,$updateM);
         if($queryupdateM){
-            header('Location: gestionUE.php');
+            echo "<script>";
+            echo "alert('Modification enregistrée')";
+            echo "</script>";
+            $URL="gestionUE.php";
+            echo "<script>location.href='$URL'</script>";
         }
     }
-
+?>
+</html>

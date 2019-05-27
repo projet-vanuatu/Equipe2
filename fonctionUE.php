@@ -1,3 +1,6 @@
+<html>
+    <head>
+        <meta charset="UTF-8"> 
 <?php
     require_once 'connexion.php';
     
@@ -106,7 +109,11 @@ function verifierMatieres($NumUE){
         $InsererUE = "INSERT INTO UNITE_ENSEIGNEMENT(IdUE, IntituleUE, IdF) VALUES (NULL, '$nomUE', '$resIdF')";
         $queryInsererUE = mysqli_query($cx,$InsererUE);
         if($queryInsererUE){
-            header('Location: creationUE.php');
+            echo "<script>";
+            echo "alert('Insertion effectuée')";
+            echo "</script>";
+            $URL="gestionUE.php";
+            echo "<script>location.href='$URL'</script>"; 
         }
     }
     
@@ -127,8 +134,13 @@ function verifierMatieres($NumUE){
         $updateUE = "UPDATE UNITE_ENSEIGNEMENT SET IntituleUE = '$intue',IdF = '$idf' WHERE IdUE=$idue";
         $queryupdateUE = mysqli_query($cx,$updateUE);
         if($queryupdateUE){
-            header('Location: gestionUE.php');
+            echo "<script>";
+            echo "alert('Modification enregistrée')";
+            echo "</script>";
+            $URL="gestionUE.php";
+            echo "<script>location.href='$URL'</script>"; 
         }
     }
     
-    
+    ?>
+</html>

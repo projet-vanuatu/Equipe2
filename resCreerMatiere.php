@@ -17,10 +17,12 @@
         if(isset($_GET['intituleM'])){
            if(isset($_GET['choixTypeMatiere'])){
                if(isset($_GET['nbHeuresM'])){
+                    $DomaineM = $_GET['choixDomaine'];
+                    $UEM = $_GET['choixUE']; 
                     $nomMat = $_GET['intituleM'];
                     $typeM = $_GET['choixTypeMatiere'];
                     $nbHeuresM = $_GET['nbHeuresM'];
-                    $insert = InsererM($nomMat, $resIdUE, $resIdDomaine);
+                    $insert = InsererM($nomMat, $UEM, $DomaineM);
                 }
             }
         }

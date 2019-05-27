@@ -87,7 +87,7 @@
         <div class="container" id="UE" style="display:block;">
             <div class="row">
                 <div class="col-sm-8">
-                    <input type="text" class="form-control" id="myInput" onkeyup="myFunction();" placeholder="Rechercher.." title="">
+                    <input type="text" class="form-control" id="inputUE" onkeyup="myFunction();" placeholder="Rechercher.." title="">
                 </div>
                 <div class="col-sm-4">
                     <a href="creationUE.php"<button class="btn btn-primary">Créer une UE</button></a>
@@ -98,7 +98,7 @@
             
             
             <div class="table-wrapper-scroll-y my-custom-scrollbar">
-                <table class="table table-hover" id="myTable">
+                <table class="table table-hover" id="tableUE">
                     <thead class="header">
                         <tr>
                             <th>Nom UE</th>
@@ -122,13 +122,33 @@
                     </tbody>
                 </table>
             </div>
+            <script>
+                $(document).ready(
+                function(){
+                    $("#inputUE").on("keyup", function(){
+                    var value = $(this).val().toLowerCase();
+                        $("#tableUE tr").filter(function(){
+                        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                        });
+                    });
+                });
+                function afficherUE(){
+                    document.getElementById("UE").style.display = "block";
+                    document.getElementById("Matieres").style.display = "none";
+                }
+                function afficherMatieres(){
+                    document.getElementById("UE").style.display = "none";
+                    document.getElementById("Matieres").style.display = "block";
+                }
+            </script>
+
         </div>
         
         <!-- contaier -->
         <div class="container" id="Matieres" style="display:none;">
             <div class="row">
                 <div class="col-sm-8">
-                    <input type="text" class="form-control" id="myInput" onkeyup="myFunction();" placeholder="Rechercher.." title="">
+                    <input type="text" class="form-control" id="inputmatiere" onkeyup="myFunction();" placeholder="Rechercher.." title="">
                 </div>
                 <div class="col-sm-4">
                     <a href="creationMatiere.php"<button class="btn btn-primary">Créer une matière</button></a>
@@ -136,7 +156,7 @@
             </div>
             <br>        
             <div class="table-wrapper-scroll-y my-custom-scrollbar">
-                <table class="table table-hover" id="myTable">
+                <table class="table table-hover" id="tablematiere">
                     <thead class="header">
                         <tr>
                             <th>Intitulé</th>
@@ -167,9 +187,9 @@
         </div>
         <script>
             $(document).ready(function(){
-            $("#myInput").on("keyup", function() {
+            $("#inputmatiere").on("keyup", function() {
                 var value = $(this).val().toLowerCase();
-                $("#myTable tr").filter(function() {
+                $("#tablematiere tr").filter(function() {
                 $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
                 });
             });
