@@ -76,19 +76,17 @@
     //Fonction de suppression de matière
     function supprimerMatieres($NumM){
         $cx= ConnectDB();
-        $NumS=recupererSeance($NumM);
-            
+        $NumS=recupererSeance($NumM);         
         $sql1="DELETE FROM RESERVER WHERE NumS=$NumS";
         $query1=mysqli_query($cx,$sql1);
-        
         $sql2="DELETE FROM DISPENSE WHERE NumS=$NumS";
-        $query1=mysqli_query($cx,$sql2);
+        $query2=mysqli_query($cx,$sql2);
         $sql3="DELETE FROM SEANCES WHERE NumS=$NumS";
-        $query1=mysqli_query($cx,$sql3);
+        $query3=mysqli_query($cx,$sql3);
         $sql4="DELETE FROM ENSEIGNE WHERE NumM=$NumM";
-        $query1=mysqli_query($cx,$sql4);
+        $query4=mysqli_query($cx,$sql4);
         $sql5="DELETE FROM MATIERES WHERE NumM=$NumM";
-        $query1=mysqli_query($cx,$sql5);
+        $query5=mysqli_query($cx,$sql5);
     }
     //Fonction de verification de séance
     function verifierSeance($NumM){
@@ -123,17 +121,14 @@
                 $modif[3]= recupererModifM($idm)['NbHeuresFixees'];
                 $modif[4]= recupererModifM($idm)['IdUE'];
                 $modif[5]= recupererModifM($idm)['IdDomaine'];
-
             }    
-            if ($type=='S'){
-                
+            if ($type=='S'){                
                     supprimerMatieres($idm);
                     echo "<script>";
                     echo "alert('La suppression a bien été prise en compte')";
                     echo "</script>"; 
                     $URL="gestionUE.php";
-                    echo "<script>location.href='$URL'</script>";
-                
+                    echo "<script>location.href='$URL'</script>";               
             } 
             $modif[6]=$idm;
         }
