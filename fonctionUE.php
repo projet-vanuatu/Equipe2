@@ -3,78 +3,81 @@
         <meta charset="UTF-8"> 
 <?php
     require_once 'connexion.php';
-    
-//Fonction d'affichage des UE
-function rechercherNomUENomF(){
-    $db = dbConnect();
-    $sql="SELECT u.IdUE, u.IntituleUE, f.IntituleF
-          FROM UNITE_ENSEIGNEMENT u, FORMATION f
-          WHERE u.IdF=f.IdF";
-    $stmt = $db->prepare($sql);
-    $stmt->execute();
-    $result = $stmt->fetchAll(PDO::FETCH_ASSOC); 
-    return $result;
-}
-
-
-//fonction supp/modifUE
-function suppModifUE(){
-    if (!empty($_GET["idue"])){
-        $idue=$_GET["idue"];
-        $type=$_GET["type"];  
-        if ($type=='M'){
-            $modif[1]= recupererModifUE($idue)['IntituleUE'];
-            $modif[2]= recupererModifUE($idue)['IdF'];
-        }
-        if ($type=='S'){
-            if(verifierMatieres($idue)==0){
-               supprimerUE($idue);
-               echo "<script>";
-               echo "alert('La suppression a bien été prise en compte')";
-               echo "</script>"; 
-               $URL="gestionUE.php";
-               echo "<script>location.href='$URL'</script>";
-            }
-            else{   
-                echo "<script>";
-                echo "alert('Vous ne pouvez pas supprimer cette UE : Il y a"." ". verifierMatieres($idue)." "."matière(s) dans cette UE')";
-                echo "</script>";
-                $URL="gestionUE.php";
-                echo "<script>location.href='$URL'</script>";            
-            }
-        }
-        $modif[3]=$idue;
+    require_once 'fonctionMatiere.php';
+    //Fonction d'affichage des UE
+    function rechercherNomUENomF(){
+        $db = dbConnect();
+        $sql="SELECT u.IdUE, u.IntituleUE, f.IntituleF
+              FROM UNITE_ENSEIGNEMENT u, FORMATION f
+              WHERE u.IdF=f.IdF";
+        $stmt = $db->prepare($sql);
+        $stmt->execute();
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC); 
+        return $result;
     }
-    else{ 
-        $modif[1]=null;
-        $modif[2]=null;
-        $modif[3]=null;
+
+
+    //fonction supp/modifUE
+    function suppModifUE(){
+        if (!empty($_GET["idue"])){
+            $idue=$_GET["idue"];
+            $type=$_GET["type"];  
+            if ($type=='M'){
+                $modif[1]= recupererModifUE($idue)['IntituleUE'];
+                $modif[2]= recupererModifUE($idue)['IdF'];
+            }
+            if ($type=='S'){
+                
+                   supprimerUE($idue);
+                   echo "<script>";
+                   echo "alert('La suppression a bien été prise en compte')";
+                   echo "</script>"; 
+                   $URL="gestionUE.php";
+                   echo "<script>location.href='$URL'</script>";
+                
+            }
+            $modif[3]=$idue;
+        }
+        else{ 
+            $modif[1]=null;
+            $modif[2]=null;
+            $modif[3]=null;
+        }
+        return $modif;
     }
-    return $modif;
-}
 
 
-//Fonction de suppression d'un UE
-function supprimerUE($IdUE){
-    $db=dbConnect();
-    $sql="DELETE FROM UNITE_ENSEIGNEMENT
-          WHERE IdUE=$IdUE";
-    $stmt = $db->prepare($sql);
-    $stmt->execute();
-}
+    //Fonction de suppression d'un UE
+    function supprimerUE($IdUE){
+        $cx= ConnectDB();
+        $NumM= retrouveMatiereUE($IdUE);
+        $NumS=recupererSeance($NumM);     
+        $sql1="DELETE FROM RESERVER WHERE NumS=$NumS";
+        $query1=mysqli_query($cx,$sql1);    
+        $sql2="DELETE FROM DISPENSE WHERE NumS=$NumS";
+        $query1=mysqli_query($cx,$sql2);
+        $sql3="DELETE FROM SEANCES WHERE NumS=$NumS";
+        $query1=mysqli_query($cx,$sql3);
+        $sql4="DELETE FROM ENSEIGNE WHERE NumM=$NumM";
+        $query1=mysqli_query($cx,$sql4);
+        $sql5="DELETE FROM MATIERES WHERE NumM=$NumM";
+        $query1=mysqli_query($cx,$sql5);
+        $sql6="DELETE FROM UNITE_ENSEIGNEMENT WHERE IdUE=$IdUE";
+        $query6=mysqli_query($cx,$sql6);
+    }
    
-//Fonction de verification de matiere
-function verifierMatieres($NumUE){
-    $cx=connectDB();
-    $sql="SELECT COUNT(*) AS nb  
-          FROM MATIERES
-          WHERE IdUE=$NumUE";
-    $exe=mysqli_query($cx,$sql);
-    $res=mysqli_fetch_array($exe);
-    return $res['nb'];
-}   
+    //Fonction de verification de matiere
+    function verifierMatieres($NumUE){
+        $cx=connectDB();
+        $sql="SELECT COUNT(*) AS nb  
+              FROM MATIERES
+              WHERE IdUE=$NumUE";
+        $exe=mysqli_query($cx,$sql);
+        $res=mysqli_fetch_array($exe);
+        return $res['nb'];
+    }   
 
- // RECUPERER INFORMATIONS UE
+    // RECUPERER INFORMATIONS UE
     function RecupererUE(){
         $conn = dbConnect();
         $sql = "SELECT IdUE, IntituleUE, IdF FROM UNITE_ENSEIGNEMENT";
@@ -116,8 +119,7 @@ function verifierMatieres($NumUE){
             echo "<script>location.href='$URL'</script>"; 
         }
     }
-    
-   
+      
     function recupererModifUE($idue){
         $cx= ConnectDB();
         $sql="SELECT u.IntituleUE, f.IdF
@@ -140,6 +142,14 @@ function verifierMatieres($NumUE){
             $URL="gestionUE.php";
             echo "<script>location.href='$URL'</script>"; 
         }
+    }
+    
+    function retrouveMatiereUE($idue){
+        $cx= ConnectDB();
+        $sql="SELECT NumM FROM MATIERES WHERE IdUE=$idue";
+        $query=mysqli_query($cx,$sql);
+        $res= mysqli_fetch_array($query);
+        return $res['NumM'];
     }
     
     ?>

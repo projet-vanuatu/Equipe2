@@ -4,9 +4,7 @@
     $resFormation = RecupererFormation();
     $intituleUE=suppModifUE()[1];
     $idf=suppModifUE()[2];
-    $idue=suppmodifUE()[3];
-    
-    
+    $idue=suppmodifUE()[3];    
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -67,8 +65,7 @@
             <div class="subnav2">
                 <button class="subnavbtn3"><span class="glyphicon glyphicon-user"></span>&nbsp;Nom Prénom</button>
             </div>
-        </div>
-            
+        </div>            
         <br>
         <br>
         <div class="container">

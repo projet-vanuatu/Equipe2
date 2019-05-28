@@ -38,12 +38,12 @@
             <div class="subnav">
                 <button class="subnavbtn">Création &nbsp;<i class="fa fa-caret-down"></i></button>
                 <div class="subnav-content">
-                <a href="creationUtilisateurs.html">Utilisateurs</a>
-                <a href="#company">Formations</a>
-                <a href="#company">Salles</a>
-                <a href="#company">Matériels</a>
-                <a href="creationUE.php">Unités d'enseignements</a>
-                <a href="creationMatiere.php">Matières</a>
+                    <a href="creationUtilisateurs.html">Utilisateurs</a>
+                    <a href="#company">Formations</a>
+                    <a href="#company">Salles</a>
+                    <a href="#company">Matériels</a>
+                    <a href="creationUE.php">Unités d'enseignements</a>
+                    <a href="creationMatiere.php">Matières</a>
                 </div>
             </div> 
             <div class="subnav">
@@ -71,18 +71,17 @@
             <div class="subnav2">
                 <button class="subnavbtn3"><span class="glyphicon glyphicon-user"></span>&nbsp;Nom Prénom</button>
             </div>
-        </div>
-            
+        </div>       
         <br>
         <br>
         <div class="container">
             <ul class="nav nav-tabs">
-                    <li class="nav-item">
-                        <a class="nav-link acstive" href="creationUE.php">Unités d'enseignement</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="creationMatiere.php">Matières</a>
-                    </li>
+                <li class="nav-item">
+                    <a class="nav-link acstive" href="creationUE.php">Unités d'enseignement</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="creationMatiere.php">Matières</a>
+                </li>
             </ul>
         </div>
         <div class="container" id="Etudiants" style="display:block;">

@@ -4,7 +4,6 @@
     $UE = rechercherNomUENomF();
     $matieres = rechercherMatieres();  
 ?>
-
 <html>
     <head>
         <meta charset="UTF-8"> 
@@ -30,12 +29,12 @@
             <div class="subnav">
                 <button class="subnavbtn">Création &nbsp;<i class="fa fa-caret-down"></i></button>
                 <div class="subnav-content">
-                <a href="creationUtilisateurs.html">Utilisateurs</a>
-                <a href="#company">Formations</a>
-                <a href="#company">Salles</a>
-                <a href="#company">Matériels</a>
-                <a href="gestionUE.php">Unités d'enseignements</a>
-                <a href="#company">Matières</a>
+                    <a href="creationUtilisateurs.html">Utilisateurs</a>
+                    <a href="#company">Formations</a>
+                    <a href="#company">Salles</a>
+                    <a href="#company">Matériels</a>
+                    <a href="gestionUE.php">Unités d'enseignements</a>
+                    <a href="#company">Matières</a>
                 </div>
             </div> 
             <div class="subnav">
@@ -64,10 +63,8 @@
                 <button class="subnavbtn3"><span class="glyphicon glyphicon-user"></span>&nbsp;Nom Prénom</button>
             </div>
         </div>
-            
         <br>
         <br>
-
         <!-- Sub-Nav -->
         <!-- style="color: #352109; font-size: 15px;" -->
         <div class="container">
@@ -80,9 +77,7 @@
                     </li>               
             </ul>
         </div>
-
         <br>
-
         <!-- Recherche -->
         <div class="container" id="UE" style="display:block;">
             <div class="row">
@@ -93,10 +88,7 @@
                     <a href="creationUE.php"<button class="btn btn-primary">Créer une UE</button></a>
                 </div>
             </div>
-
-            <br>
-            
-            
+            <br>            
             <div class="table-wrapper-scroll-y my-custom-scrollbar">
                 <table class="table table-hover" id="tableUE">
                     <thead class="header">
@@ -141,9 +133,7 @@
                     document.getElementById("Matieres").style.display = "block";
                 }
             </script>
-
-        </div>
-        
+        </div>       
         <!-- contaier -->
         <div class="container" id="Matieres" style="display:none;">
             <div class="row">

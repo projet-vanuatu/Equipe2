@@ -5,8 +5,7 @@
     if(!empty($_GET['idue'])){
         $nomUE = $_GET['intituleUE'];
         $resIdF = $_GET['formationUE'];
-        $idue=$_GET['idue'];
-        
+        $idue=$_GET['idue'];       
         modifierUE($idue, $nomUE, $resIdF);
     }
     else{
